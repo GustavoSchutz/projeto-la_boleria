@@ -2,11 +2,11 @@
   "name": "projeto-la_boleria",
   "version": "1.0.0",
   "description": "",
-  "main": "index.js",
+  "main": "./src/server.js",
   "type": "module",
   "scripts": {
-    "start": "node src/server.js",
-    "dev": "npx nodemon src/server.js"
+    "start": "node ./src/server.js",
+    "dev": "npx nodemon ./src/server.js"
   },
   "keywords": [],
   "author": "",
@@ -15,6 +15,7 @@
     "cors": "^2.8.5",
     "dotenv": "^16.0.3",
     "express": "^4.18.2",
+    "joi": "^17.6.4",
     "jsonwebtoken": "^8.5.1",
     "nanoid": "^4.0.0",
     "pg": "^8.8.0"
