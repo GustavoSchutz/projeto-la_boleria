@@ -99,4 +99,29 @@ async function getOrders(req, res) {
     }
 }
 
-    export { newOrder, getOrders };
+async function getOrdersById(req, res) {
+    const { id } = req.params;
+
+    try {
+        const getOrderById = await ordersRepo.getOrdersById(id);
+
+        if (getOrderById.rowCount === 0) {
+            return notFoundResponse(
+                res,
+                'Nenhum pedido encontrado com este id.'
+            );
+        }
+
+        return res.status(200).send(getOrderById.rows);
+
+    } catch (error) {
+        console.log(error);
+
+        return internalServerError(
+            res,
+            'Erro interno teste'
+        );
+    }
+}
+
+    export { newOrder, getOrders, getOrdersById };

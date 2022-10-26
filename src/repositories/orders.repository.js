@@ -44,4 +44,23 @@ async function getOrdersByDate(date) {
     );
 }
 
-export { insertOrder, getOrders, getOrdersByDate }
+async function getOrdersById(id) {
+    return connection.query(
+        `SELECT
+        orders.id AS "orderId",
+		orders.quantity AS "quantity",
+		orders."totalPrice" AS "totalPrice",
+		TO_CHAR(orders."createdAt", 'YYYY-MM-DD HH:MM') AS "createdAt",
+		json_build_object('id', clients.id, 'name', clients.name, 'address', clients.address, 'phone', clients.phone) AS clients,
+		json_build_object('id', cakes.id, 'name', cakes.name, 'price', cakes.price, 'image', cakes.image, 'description', cakes.description) AS cakes
+      FROM orders
+        JOIN clients
+          ON orders."clientId" = clients.id
+        JOIN cakes
+          ON orders."cakeId" = cakes.id
+	WHERE orders.id = $1;`,
+    [id]
+    );
+} 
+
+export { insertOrder, getOrders, getOrdersByDate, getOrdersById }
