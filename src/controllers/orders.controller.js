@@ -3,6 +3,7 @@ import * as clientsRepo from '../repositories/clients.repository.js';
 import * as ordersRepo from '../repositories/orders.repository.js';
 import { conflictResponse, badRequestResponse, internalServerError, unprocessableEntityResponse, createdResponse, notFoundResponse } from './controllers.helper.js';
 import { newOrderSchema } from '../schemas/schemas.js';
+import { query } from 'express';
 
 async function newOrder(req, res) {
     const { clientId, cakeId, quantity } = req.body;
@@ -65,11 +66,29 @@ async function newOrder(req, res) {
 }
 
 async function getOrders(req, res) {
-    try {
-        const getOrders = await ordersRepo.getOrders();
 
-        console.log(getOrders);
-        return res.status(200).send(getOrders.rows);
+    const { date } = req.query;
+
+    try {
+
+        if (Object.keys(req.query).length === 0) {
+            const getOrders = await ordersRepo.getOrders();
+
+            console.log(getOrders);
+            return res.status(200).send(getOrders.rows);
+        }
+
+        const getOrdersByDate = await ordersRepo.getOrdersByDate(date);
+
+        if (getOrdersByDate.rowCount === 0) {
+            return notFoundResponse(
+                res,
+                'Nenhum pedido encontrado na data especificada.'
+            );
+        }
+
+        return res.status(200).send(getOrdersByDate.rows);
+        
     } catch (error) {
         console.log(error);
 
