@@ -38,4 +38,8 @@ function createdResponse(res, text = STATUS_TEXT.CREATED){
     return res.status(STATUS_CODE.CREATED).send(text);
 } 
 
-export { badRequestResponse, conflictResponse, internalServerError, unprocessableEntityResponse, createdResponse }
+function notFoundResponse(res, text = STATUS_TEXT.NOT_FOUND) {
+    return res.status(STATUS_CODE.NOT_FOUND).send(text);
+}
+
+export { notFoundResponse, badRequestResponse, conflictResponse, internalServerError, unprocessableEntityResponse, createdResponse }

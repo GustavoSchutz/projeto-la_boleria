@@ -16,7 +16,10 @@ async function newCake(req, res) {
                 'O endereço da imagem precisa ser um link em formato válido ex: "https://example.com"'
             )
         }
-        return res.sendStatus(400);
+        return badRequestResponse(
+            res,
+            'Os campos não estão preenchidos corretamente!'
+        );
     }
 
     try {
@@ -48,11 +51,6 @@ async function newCake(req, res) {
             'Erro interno teste'
         );
     }
-
-    return internalServerError(
-        res,
-        'Erro interno'
-    );
 
 }
 

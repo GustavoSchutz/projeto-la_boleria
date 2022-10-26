@@ -9,6 +9,15 @@ async function getCakeByName(name) {
     return result;
 }
 
+async function getCakeById(cakeId) {
+    const result = await connection.query(
+        `SELECT * FROM cakes WHERE id = $1;`,
+        [cakeId]
+    );
+
+    return result;
+}
+
 async function insertCake({ name, price, image, description }) {
     return connection.query(
         `INSERT INTO cakes (name, price, image, description) 
@@ -17,4 +26,4 @@ async function insertCake({ name, price, image, description }) {
     );
 }
 
-export { getCakeByName, insertCake };
+export { getCakeById, getCakeByName, insertCake };

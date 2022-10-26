@@ -10,7 +10,7 @@ const newCakeSchema = joi.object({
 const newClientSchema = joi.object({
     name: joi.string().required(),
     address: joi.string().required(),
-    phone: joi.string().min(10).max(11)
+    phone: joi.string().min(10).max(11).regex(/^\d+$/).required()
 });
 
 const newOrderSchema = joi.object({
