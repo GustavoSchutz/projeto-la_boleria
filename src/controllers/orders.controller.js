@@ -88,7 +88,7 @@ async function getOrders(req, res) {
         }
 
         return res.status(200).send(getOrdersByDate.rows);
-        
+
     } catch (error) {
         console.log(error);
 
@@ -124,4 +124,30 @@ async function getOrdersById(req, res) {
     }
 }
 
-    export { newOrder, getOrders, getOrdersById };
+async function getOrdersByClientId(req, res) {
+    const { id } = req.params;
+
+    try {
+        const getOrderByClientId = await ordersRepo.getOrdersByClientId(id);
+
+        if (getOrderByClientId.rowCount === 0) {
+            return notFoundResponse(
+                res,
+                'Este cliente não tem nenhum pedido.'
+            );
+        }
+
+        return res.status(200).send(getOrderByClientId.rows);
+
+    } catch (error) {
+        console.log(error);
+
+        return internalServerError(
+            res,
+            'Erro interno teste'
+        );
+    }
+
+}
+
+export { newOrder, getOrders, getOrdersById, getOrdersByClientId };

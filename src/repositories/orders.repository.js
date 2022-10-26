@@ -61,6 +61,21 @@ async function getOrdersById(id) {
 	WHERE orders.id = $1;`,
     [id]
     );
-} 
+}
 
-export { insertOrder, getOrders, getOrdersByDate, getOrdersById }
+async function getOrdersByClientId(id) {
+    return connection.query(
+        `SELECT
+            orders.id AS "orderId",
+            cakes.name AS "cakeName",
+            orders.quantity AS "quantity",
+            TO_CHAR(orders."createdAt", 'YYYY-MM-DD HH:MM') AS "createdAt",
+            orders."totalPrice" AS "totalPrice"
+        FROM orders
+        join cakes on cakes.id = orders."cakeId"
+        WHERE orders."clientId" = $1;`,
+        [id]
+    );
+}
+
+export { insertOrder, getOrders, getOrdersByDate, getOrdersById, getOrdersByClientId }
