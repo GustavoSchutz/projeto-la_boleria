@@ -26,5 +26,16 @@ function conflictResponse(res, text = STATUS_TEXT.CONFLICT) {
     return res.status(STATUS_CODE.CONFLICT).send(text);
 }
 
+function internalServerError(res, text = STATUS_TEXT.SERVER_ERROR) {
+    return res.status(STATUS_CODE.SERVER_ERROR).send(text);
+}
 
-export { badRequestResponse, conflictResponse }
+function unprocessableEntityResponse(res, text = STATUS_TEXT.UNPROCESSABLE_ENTITY) {
+    return res.status(STATUS_CODE.UNPROCESSABLE_ENTITY).send(text);
+}
+
+function createdResponse(res, text = STATUS_TEXT.CREATED){
+    return res.status(STATUS_CODE.CREATED).send(text);
+} 
+
+export { badRequestResponse, conflictResponse, internalServerError, unprocessableEntityResponse, createdResponse }

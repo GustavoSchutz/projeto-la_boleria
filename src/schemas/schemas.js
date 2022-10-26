@@ -4,7 +4,7 @@ const newCakeSchema = joi.object({
     name: joi.string().min(2).required(),
     price: joi.number().min(.01).required(),
     image: joi.string().uri().required(),
-    description: joi.string()
+    description: joi.string().allow("")
 });
 
 const newClientSchema = joi.object({

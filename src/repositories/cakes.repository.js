@@ -6,10 +6,6 @@ async function getCakeByName(name) {
         [name]
     );
 
-    if (result.rowCount === 0) {
-        return false;
-    }
-
     return result;
 }
 
