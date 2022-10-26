@@ -35,7 +35,7 @@ async function newOrder(req, res) {
     }
 
     const cakePrice = getCakeById.rows[0].price;
-    
+
     const totalPrice = cakePrice * quantity;
 
     try {
@@ -62,8 +62,22 @@ async function newOrder(req, res) {
         );
     }
 
-    return res.sendStatus(200);
-
 }
 
-export {newOrder};
+async function getOrders(req, res) {
+    try {
+        const getOrders = await ordersRepo.getOrders();
+
+        console.log(getOrders);
+        return res.status(200).send(getOrders.rows);
+    } catch (error) {
+        console.log(error);
+
+        return internalServerError(
+            res,
+            'Erro interno teste'
+        );
+    }
+}
+
+    export { newOrder, getOrders };
